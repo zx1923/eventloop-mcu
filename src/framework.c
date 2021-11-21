@@ -72,10 +72,8 @@ uint8_t FW_NextTick(void callback(), fun_params_t p[])
 void FW_Delay(uint32_t ms)
 {
   uint32_t endTime = Sys_GetMillis() + ms;
-  printf("[%0.8d] => delay start\r\n", Sys_GetMillis());
   while (Sys_GetMillis() < endTime)
   {
     EL_RunTasks();
   }
-  printf("[%0.8d] <= delay end\r\n", Sys_GetMillis());
 }
