@@ -24,6 +24,7 @@ void FW_Start(void handler(), uint8_t fps)
   {
     EfpsTime = 1000.0 / fps;
   }
+  ET_Init();
   El_Init();
   handler();
   while (1)
