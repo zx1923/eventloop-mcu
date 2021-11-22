@@ -23,13 +23,15 @@ typedef enum
 #define el_btn_pin_def          uint16_t
 #endif // ENABLE_BUTTON_EVENT
 
-// 自定义事件枚举
 typedef enum
 {
   EVENT_BTN_PRESS = 1,
   EVENT_BTN_RELEASE,
   EVENT_BTN_CLICK,
   EVENT_BTN_DCLICK,
+  // ...
+  // add custom events here
+  // ...
 } et_type_t;
 
 #endif
