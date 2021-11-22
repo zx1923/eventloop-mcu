@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "eos.h"
 
 static uint16_t TickNumber = 0;
 static float EfpsTime = 0;

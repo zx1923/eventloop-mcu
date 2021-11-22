@@ -1,21 +1,35 @@
-#ifndef __USER_BSP_H__
-#define __USER_BSP_H__
+#ifndef __USER_EL_BSP_H__
+#define __USER_EL_BSP_H__
 
 #include "stdio.h"
-#include "stm32f4xx_hal.h"  // 根据自己使用的MCU类型进行修改
+#include "stm32f4xx_hal.h"
 #include "build.h"
 
-#define DF_MAX_TASK_LEN     32
-#define DF_EVENT_BUF_LEN    16
-#define DF_MAX_LISTENERS    32
+// BSP gpio define
+#define Bsp_Gpio_Write	        HAL_GPIO_WritePin
+#define Bsp_Gpio_Read		        HAL_GPIO_ReadPin
+// gpio state define
+#define BSP_PIN_HIGH            GPIO_PIN_SET
+#define BSP_PIN_LOW             GPIO_PIN_RESET
+
+#ifdef ENABLE_BUTTON_EVENT
+#define DF_BTN_DCLICK_DELAY     3000
+typedef enum
+{
+  EL_BTN_PRESS = BSP_PIN_LOW,
+  EL_BTN_RELEASE = BSP_PIN_HIGH,
+} el_btn_state_t;
+#define el_btn_port_def         GPIO_TypeDef
+#define el_btn_pin_def          uint16_t
+#endif // ENABLE_BUTTON_EVENT
 
 // 自定义事件枚举
 typedef enum
 {
-  ET_BTN_PRESS = 1,
-  ET_BTN_RELEASE,
-  ET_BTN_CLICK,
-  ET_BTN_DCLICK,
+  EVENT_BTN_PRESS = 1,
+  EVENT_BTN_RELEASE,
+  EVENT_BTN_CLICK,
+  EVENT_BTN_DCLICK,
 } et_type_t;
 
 #endif
