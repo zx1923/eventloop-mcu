@@ -1,9 +1,8 @@
 #ifndef __USER_EL_BUTTON_H__
 #define __USER_EL_BUTTON_H__
 
-#ifdef ENABLE_BUTTON_EVENT
 #include "event_loop.h"
-
+#ifdef ENABLE_BUTTON_EVENT
 typedef struct
 {
   uint8_t id;

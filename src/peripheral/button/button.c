@@ -1,5 +1,5 @@
-#ifdef ENABLE_BUTTON_EVENT
 #include "button.h"
+#ifdef ENABLE_BUTTON_EVENT
 
 static el_btn_group_t Buttons;
 
