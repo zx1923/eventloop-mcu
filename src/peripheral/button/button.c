@@ -1,3 +1,4 @@
+#ifdef ENABLE_BUTTON_EVENT
 #include "button.h"
 
 static el_btn_group_t Buttons;
@@ -55,4 +56,6 @@ void el_button_observeState()
     _walkButtonsState(Buttons.btns[i]);
   }
 }
+
+#endif // ENABLE_BUTTON_EVENT
 

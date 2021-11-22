@@ -25,11 +25,10 @@ el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[])
   }
   for (uint8_t i = 0; i < EventDeps.size; i++)
   {
-    if (EventDeps.subs[i]->eventType != eventType)
+    if (EventDeps.subs[i]->eventType == eventType)
     {
-      continue;
+      EventDeps.subs[i]->handler(params);
     }
-    EventDeps.subs[i]->handler(params);
   }
   free(params);
   return EL_OK;

@@ -1,6 +1,7 @@
 #ifndef __USER_EL_BUTTON_H__
 #define __USER_EL_BUTTON_H__
 
+#ifdef ENABLE_BUTTON_EVENT
 #include "event_loop.h"
 
 typedef struct
@@ -25,3 +26,5 @@ el_ret_t el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id,
 void el_button_observeState(void);
 
 #endif
+#endif // ENABLE_BUTTON_EVENT
+
