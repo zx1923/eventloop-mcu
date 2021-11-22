@@ -1,11 +1,8 @@
-#ifndef __USER_EVENT_LOOP_H__
-#define __USER_EVENT_LOOP_H__
+#ifndef __USER_EL_EVENT_LOOP_H__
+#define __USER_EL_EVENT_LOOP_H__
 
 #include "transplant/sys_global.h"
 #include "emiter.h"
-
-#define DF_MAX_TASK_LEN   32
-#define DF_EVENT_BUF_LEN   32
 
 typedef enum
 {

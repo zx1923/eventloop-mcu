@@ -4,7 +4,7 @@ static et_dep_t EventDeps;
 
 el_ret_t el_addEventListener(et_type_t eventType, void handler())
 {
-  if (EventDeps.size >= MAX_ET_LISTENERS)
+  if (EventDeps.size >= DF_MAX_LISTENERS)
   {
     return EL_FULL;
   }
@@ -12,7 +12,7 @@ el_ret_t el_addEventListener(et_type_t eventType, void handler())
   sub->eventType = eventType;
   sub->handler = handler;
   EventDeps.subs[EventDeps.wp++] = sub;
-  EventDeps.wp = EventDeps.wp >= MAX_ET_LISTENERS ? 0 : EventDeps.wp;
+  EventDeps.wp = EventDeps.wp >= DF_MAX_LISTENERS ? 0 : EventDeps.wp;
   EventDeps.size++;
   return EL_OK;
 }

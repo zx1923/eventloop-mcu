@@ -4,7 +4,6 @@
 #include "transplant/bsp.h"
 #include "transplant/sys_global.h"
 #include "event_loop.h"
-#include "emiter.h"
 
 #define INTERVAL_NONE 0
 

@@ -1,7 +1,6 @@
-#ifndef __USER_EMITER_H__
-#define __USER_EMITER_H__
+#ifndef __USER_EL_EMITER_H__
+#define __USER_EL_EMITER_H__
 
-#define MAX_ET_LISTENERS  32
 #include "transplant/sys_global.h"
 
 typedef struct
@@ -12,7 +11,7 @@ typedef struct
 
 typedef struct
 {
-  et_subs_t *subs[MAX_ET_LISTENERS];
+  et_subs_t *subs[DF_MAX_LISTENERS];
   uint8_t rp;
   uint8_t wp;
   uint8_t size;

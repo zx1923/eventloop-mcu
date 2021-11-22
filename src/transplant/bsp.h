@@ -3,6 +3,11 @@
 
 #include "stdio.h"
 #include "stm32f4xx_hal.h"  // 根据自己使用的MCU类型进行修改
+#include "build.h"
+
+#define DF_MAX_TASK_LEN     32
+#define DF_EVENT_BUF_LEN    16
+#define DF_MAX_LISTENERS    32
 
 // 自定义事件枚举
 typedef enum

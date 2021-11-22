@@ -1,5 +1,5 @@
-#ifndef __USER_SYS_GLOBAL_H__
-#define __USER_SYS_GLOBAL_H__
+#ifndef __USER_EL_SYS_GLOBAL_H__
+#define __USER_EL_SYS_GLOBAL_H__
 
 #include <stdlib.h>
 #include "bsp.h"
