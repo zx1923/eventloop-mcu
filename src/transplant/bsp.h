@@ -6,8 +6,8 @@
 #include "build.h"
 
 // BSP gpio define
-#define Bsp_Gpio_Write	        HAL_GPIO_WritePin
-#define Bsp_Gpio_Read		        HAL_GPIO_ReadPin
+#define Bsp_Gpio_Write          HAL_GPIO_WritePin
+#define Bsp_Gpio_Read	          HAL_GPIO_ReadPin
 // gpio state define
 #define BSP_PIN_HIGH            GPIO_PIN_SET
 #define BSP_PIN_LOW             GPIO_PIN_RESET
