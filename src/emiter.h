@@ -1,8 +1,8 @@
 #ifndef __USER_EMITER_H__
 #define __USER_EMITER_H__
 
-#define MAX_ET_LISTENERS  128
-#include "sys_global.h"
+#define MAX_ET_LISTENERS  32
+#include "transplant/sys_global.h"
 
 typedef struct
 {
@@ -25,8 +25,8 @@ typedef struct
   uint32_t occuredTime;
 } et_body_t;
 
-void ET_Init(void);
-el_ret_t ET_AddEventListener(et_type_t eventType, void handler());
-el_ret_t ET_EmitEvent(et_type_t eventType, fun_params_t params[]);
+// void el_Init(void);
+el_ret_t el_addEventListener(et_type_t eventType, void handler());
+el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[]);
 
 #endif

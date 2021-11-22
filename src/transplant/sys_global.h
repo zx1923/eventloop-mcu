@@ -3,8 +3,8 @@
 
 #include <stdlib.h>
 #include "bsp.h"
-#define Sys_Delay             HAL_Delay
-#define Sys_GetMillis         HAL_GetTick
+#define EL_Delay             HAL_Delay
+#define EL_GetTickMillis     HAL_GetTick
 
 typedef enum
 {
@@ -28,7 +28,7 @@ typedef struct
   params_union_t param;
 } fun_params_t;
 
-void Sys_DelaySync(uint32_t ms);
-uint8_t Sys_CreateTaskId(void);
+uint32_t el_getMillis(void);
+void el_delaySync(uint32_t ms);
 
 #endif

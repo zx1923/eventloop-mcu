@@ -14,12 +14,12 @@ et_body_t *_shiftEvent(el_event_buf_t *eventBuf);
 
 el_ret_t _pushTask(el_task_buf_t *taskBuf, el_task_t *task)
 {
-  if (taskBuf->size >= MA_TASK_LEN)
+  if (taskBuf->size >= DF_MAX_TASK_LEN)
   {
     return EL_FULL;
   }
   taskBuf->buf[taskBuf->wp++] = task;
-  taskBuf->wp = taskBuf->wp >= MA_TASK_LEN ? 0 : taskBuf->wp;
+  taskBuf->wp = taskBuf->wp >= DF_MAX_TASK_LEN ? 0 : taskBuf->wp;
   taskBuf->size++;
   return EL_OK;
 }
@@ -31,19 +31,19 @@ el_task_t *_shiftTask(el_task_buf_t *taskBuf)
     return NULL;
   }
   el_task_t *task = taskBuf->buf[taskBuf->rp++];
-  taskBuf->rp = taskBuf->rp >= MA_TASK_LEN ? 0 : taskBuf->rp;
+  taskBuf->rp = taskBuf->rp >= DF_MAX_TASK_LEN ? 0 : taskBuf->rp;
   taskBuf->size--;
   return task;
 }
 
 el_ret_t _pushEvent(el_event_buf_t *eventBuf, et_body_t *eventBody)
 {
-  if (eventBuf->size >= EVENT_BUF_LEN)
+  if (eventBuf->size >= DF_EVENT_BUF_LEN)
   {
     return EL_FULL;
   }
   eventBuf->buf[eventBuf->wp++] = eventBody;
-  eventBuf->wp = eventBuf->wp >= EVENT_BUF_LEN ? 0 : eventBuf->wp;
+  eventBuf->wp = eventBuf->wp >= DF_EVENT_BUF_LEN ? 0 : eventBuf->wp;
   eventBuf->size++;
   return EL_OK;
 }
@@ -55,7 +55,7 @@ et_body_t *_shiftEvent(el_event_buf_t *eventBuf)
     return NULL;
   }
   et_body_t *eventBody = eventBuf->buf[eventBuf->rp++];
-  eventBuf->rp = eventBuf->rp >= EVENT_BUF_LEN ? 0 : eventBuf->rp;
+  eventBuf->rp = eventBuf->rp >= DF_EVENT_BUF_LEN ? 0 : eventBuf->rp;
   eventBuf->size--;
   return eventBody;
 }
@@ -66,9 +66,9 @@ el_ret_t _callTaskHandler(el_task_t *task)
   {
     return EL_ERR;
   }
-  if (Sys_GetMillis() < task->runAt)
+  if (el_getMillis() < task->runAt)
   {
-    EL_PushMacroTask(task);
+    el_pushMacroTask(task);
     return EL_OK;
   }
   task->status = EL_RUNNING;
@@ -79,8 +79,8 @@ el_ret_t _callTaskHandler(el_task_t *task)
   if (task->interval > 0)
   {
     task->status = EL_IDLE;
-    task->runAt = Sys_GetMillis() + task->interval;
-    EL_PushMacroTask(task);
+    task->runAt = el_getMillis() + task->interval;
+    el_pushMacroTask(task);
     return EL_OK;
   }
 
@@ -106,32 +106,22 @@ el_ret_t _walkEventBuf(el_event_buf_t *eventBuf)
   {
     return EL_EMPTY;
   }
-  el_ret_t res = ET_EmitEvent(eventBody->eventType, eventBody->params);
+  el_ret_t res = el_emitEvent(eventBody->eventType, eventBody->params);
   free(eventBody);
   return res;
 }
 
-void El_Init()
-{
-  // macro
-  MacroTasksBuffer.rp = MacroTasksBuffer.wp = MacroTasksBuffer.size;
-  // micro
-  MicroTasksBuffer.rp = MicroTasksBuffer.wp = MicroTasksBuffer.size;
-  // events
-  EventQueueBuffer.rp = EventQueueBuffer.wp = EventQueueBuffer.size;
-}
-
-el_ret_t EL_PushMacroTask(el_task_t *task)
+el_ret_t el_pushMacroTask(el_task_t *task)
 {
   return _pushTask(&MacroTasksBuffer, task);
 }
 
-el_ret_t EL_PushMicroTask(el_task_t *task)
+el_ret_t el_pushMicroTask(el_task_t *task)
 {
   return _pushTask(&MicroTasksBuffer, task);
 }
 
-el_ret_t EL_PushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime)
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime)
 {
   et_body_t *eventBody = (et_body_t *)malloc(sizeof(et_body_t));
   eventBody->eventType = eventType;
@@ -140,7 +130,7 @@ el_ret_t EL_PushEvent(et_type_t eventType, fun_params_t params[], uint32_t occur
   return _pushEvent(&EventQueueBuffer, eventBody);
 }
 
-void EL_RunTasks(void)
+void el_runTasks(void)
 {
   uint8_t miSize = MicroTasksBuffer.size;
   uint8_t maSize = MacroTasksBuffer.size;

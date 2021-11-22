@@ -2,12 +2,7 @@
 
 static et_dep_t EventDeps;
 
-void ET_Init(void)
-{
-  EventDeps.rp = EventDeps.wp = EventDeps.size = 0;
-}
-
-el_ret_t ET_AddEventListener(et_type_t eventType, void handler())
+el_ret_t el_addEventListener(et_type_t eventType, void handler())
 {
   if (EventDeps.size >= MAX_ET_LISTENERS)
   {
@@ -22,7 +17,7 @@ el_ret_t ET_AddEventListener(et_type_t eventType, void handler())
   return EL_OK;
 }
 
-el_ret_t ET_EmitEvent(et_type_t eventType, fun_params_t params[])
+el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[])
 {
   if (EventDeps.size <= 0)
   {

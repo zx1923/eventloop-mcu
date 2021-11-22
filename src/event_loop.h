@@ -1,12 +1,11 @@
 #ifndef __USER_EVENT_LOOP_H__
 #define __USER_EVENT_LOOP_H__
 
-#include "sys_global.h"
+#include "transplant/sys_global.h"
 #include "emiter.h"
 
-#define MA_TASK_LEN   5
-#define EVENT_BUF_LEN   32
-#define INTERVAL_NONE 0
+#define DF_MAX_TASK_LEN   32
+#define DF_EVENT_BUF_LEN   32
 
 typedef enum
 {
@@ -34,7 +33,7 @@ typedef struct
 
 typedef struct
 {
-  el_task_t *buf[MA_TASK_LEN];
+  el_task_t *buf[DF_MAX_TASK_LEN];
   uint8_t wp;    // 写指针
   uint8_t rp;    // 读指针
   uint8_t size;  // 缓冲区的最大长度
@@ -42,19 +41,15 @@ typedef struct
 
 typedef struct
 {
-  et_body_t *buf[EVENT_BUF_LEN];
+  et_body_t *buf[DF_EVENT_BUF_LEN];
   uint8_t wp;
   uint8_t rp;
   uint8_t size;
 } el_event_buf_t;
 
-
-void El_Init(void);
-
-el_ret_t EL_PushMacroTask(el_task_t *task);
-el_ret_t EL_PushMicroTask(el_task_t *task);
-el_ret_t EL_PushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime);
-
-void EL_RunTasks(void);
+el_ret_t el_pushMacroTask(el_task_t *task);
+el_ret_t el_pushMicroTask(el_task_t *task);
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime);
+void el_runTasks(void);
 
 #endif
