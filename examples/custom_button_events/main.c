@@ -6,9 +6,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "user/bsp_led.h"
-#include "user/bsp_button.h"
-#include "framework.h"
+#include "eos.h"
 /* USER CODE END Includes */
 
 // ...
