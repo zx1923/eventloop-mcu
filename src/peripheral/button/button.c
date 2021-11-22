@@ -9,8 +9,9 @@ el_ret_t _walkButtonsState(el_btn_t *btn)
   {
     btn->lastState = EL_BTN_PRESS;
     btn->lastEventTime = el_getMillis();
-    fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
+    fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
     params[0].param.uint8Data = btn->id;
+    params[1].param.uint8Data = btn->lastEventTime;
     return el_pushEvent(EVENT_BTN_PRESS, params, btn->lastEventTime);
   }
 
@@ -19,8 +20,9 @@ el_ret_t _walkButtonsState(el_btn_t *btn)
   {
     btn->lastState = EL_BTN_RELEASE;
     btn->lastEventTime = el_getMillis();
-    fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
+    fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
     params[0].param.uint8Data = btn->id;
+    params[1].param.uint8Data = btn->lastEventTime;
     return el_pushEvent(EVENT_BTN_RELEASE, params, btn->lastEventTime);
   }
   return EL_OK;
