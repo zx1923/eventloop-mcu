@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include "bsp.h"
 
-#define el_getMillis        HAL_GetTick
-#define el_delaySync        HAL_Delay
+#define el_getMillis    Bsp_Get_Tick
+#define el_delaySync    Bsp_Delay_Ms
 
 typedef enum
 {
@@ -22,6 +22,7 @@ typedef union
   int32_t int32Data;
   double doubleData;
   const char* stringData;
+  uint32_t pointer;
 } params_union_t;
 
 typedef struct

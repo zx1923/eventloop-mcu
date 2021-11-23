@@ -10,6 +10,7 @@ typedef struct
   el_btn_pin_def pin;
   el_btn_state_t lastState;
   uint32_t lastEventTime;
+  et_type_t lockEvent;
 } el_btn_t;
 
 typedef struct

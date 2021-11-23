@@ -10,4 +10,9 @@
 // modules
 #define ENABLE_BUTTON_EVENT
 
+// sensors
+#define ENABLE_SENSOR_LIS3DH
+#define ENABLE_SENSOR_BMP180
+#define ENABLE_SENSOR_BMP280
+
 #endif
