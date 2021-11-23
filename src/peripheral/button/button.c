@@ -5,7 +5,6 @@
 static el_btn_group_t Buttons;
 
 el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType);
-el_ret_t _walkBtnsState(el_btn_t *btn);
 void _clearDclickEvent(fun_params_t p[]);
 
 el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType)
@@ -27,7 +26,7 @@ void _clearDclickEvent(fun_params_t p[])
   }
 }
 
-el_ret_t _walkBtnsState(el_btn_t *btn)
+el_ret_t el_button_postEvent(el_btn_t *btn)
 {
   uint32_t lastEventTime = btn->lastEventTime;
   // press
@@ -75,11 +74,11 @@ el_ret_t _walkBtnsState(el_btn_t *btn)
   return EL_EMPTY;
 }
 
-el_ret_t el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id, el_btn_state_t initState)
+el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id, el_btn_state_t initState)
 {
   if (Buttons.wp >= DF_BUTTON_COUNTER)
   {
-    return EL_FULL;
+    return NULL;
   }
   el_btn_t *btn = (el_btn_t *)malloc(sizeof(el_btn_t));
   btn->id = id;
@@ -88,7 +87,7 @@ el_ret_t el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id,
   btn->lastState = initState;
   btn->lastEventTime = 0;
   Buttons.btns[Buttons.wp++] = btn;
-  return EL_OK;
+  return btn;
 }
 
 void el_button_observeState()
@@ -99,7 +98,7 @@ void el_button_observeState()
   }
   for (uint8_t i = 0; i < Buttons.wp; i++)
   {
-    _walkBtnsState(Buttons.btns[i]);
+    el_button_postEvent(Buttons.btns[i]);
   }
 }
 
