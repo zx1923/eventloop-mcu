@@ -5,6 +5,10 @@
 #include "stm32f4xx_hal.h"
 #include "build.h"
 
+#ifndef NULL
+#define NULL  0
+#endif // NULL
+
 // BSP delay
 #define Bsp_Get_Tick            HAL_GetTick
 #define Bsp_Delay_Ms            HAL_Delay
@@ -28,8 +32,8 @@ typedef enum
   // ...
 } et_type_t;
 
-#ifdef ENABLE_BUTTON_EVENT
-// #define EVENT_BTN_CLICK         EVENT_BTN_RELEASE
+// button
+#ifdef ENABLE_BUTTON_DEVICE
 #define DF_BTN_LONG_PRESS_TIME  1000
 #define DF_BTN_DCLICK_DELAY     300
 typedef enum
@@ -39,6 +43,12 @@ typedef enum
 } el_btn_state_t;
 #define el_btn_port_def         GPIO_TypeDef
 #define el_btn_pin_def          uint16_t
-#endif // ENABLE_BUTTON_EVENT
+#endif // ENABLE_BUTTON_DEVICE
+
+// buzzer
+#ifdef ENABLE_BUZZER_DEVICE
+#define el_tim_def              TIM_HandleTypeDef
+#define el_channel_def          uint16_t
+#endif // ENABLE_BUZZER_DEVICE
 
 #endif

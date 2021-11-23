@@ -7,8 +7,9 @@
 // peripheral
 #define DF_BUTTON_COUNTER   4
 
-// modules
-#define ENABLE_BUTTON_EVENT
+// module/device
+#define ENABLE_BUTTON_DEVICE
+#define ENABLE_BUZZER_DEVICE
 
 // sensors
 #define ENABLE_SENSOR_LIS3DH
