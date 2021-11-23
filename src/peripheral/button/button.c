@@ -1,11 +1,11 @@
 #include "button.h"
-#include "eos.h"
-#ifdef ENABLE_BUTTON_EVENT
+
+#ifdef ENABLE_BUTTON_DEVICE
 
 static el_btn_group_t Buttons;
 
 el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType);
-el_ret_t _walkButtonsState(el_btn_t *btn);
+el_ret_t _walkBtnsState(el_btn_t *btn);
 void _clearDclickEvent(fun_params_t p[]);
 
 el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType)
@@ -27,7 +27,7 @@ void _clearDclickEvent(fun_params_t p[])
   }
 }
 
-el_ret_t _walkButtonsState(el_btn_t *btn)
+el_ret_t _walkBtnsState(el_btn_t *btn)
 {
   uint32_t lastEventTime = btn->lastEventTime;
   // press
@@ -99,8 +99,8 @@ void el_button_observeState()
   }
   for (uint8_t i = 0; i < Buttons.wp; i++)
   {
-    _walkButtonsState(Buttons.btns[i]);
+    _walkBtnsState(Buttons.btns[i]);
   }
 }
 
-#endif // ENABLE_BUTTON_EVENT
+#endif // ENABLE_BUTTON_DEVICE

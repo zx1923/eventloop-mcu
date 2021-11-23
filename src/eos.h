@@ -5,9 +5,9 @@
 #include "transplant/sys_global.h"
 #include "event_loop.h"
 
-#ifdef ENABLE_BUTTON_EVENT
+#ifdef ENABLE_BUTTON_DEVICE
 #include "peripheral/button/button.h"
-#endif // ENABLE_BUTTON_EVENT
+#endif // ENABLE_BUTTON_DEVICE
 
 #define INTERVAL_NONE 0
 
