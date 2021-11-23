@@ -1,8 +1,8 @@
 #ifndef __USER_EL_BUILD_H__
 #define __USER_EL_BUILD_H__
 
-#define DF_MAX_TASK_LEN     32
-#define DF_EVENT_BUF_LEN    16
+#define DF_MAX_TASK_LEN     48
+#define DF_EVENT_BUF_LEN    32
 #define DF_MAX_LISTENERS    32
 // peripheral
 #define DF_BUTTON_COUNTER   4
