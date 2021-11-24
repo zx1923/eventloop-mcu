@@ -1,7 +1,7 @@
 #ifndef __USER_EL_BUZZER_H__
 #define __USER_EL_BUZZER_H__
 
-#include "eos.h"
+#include "async.h"
 #ifdef ENABLE_BUZZER_DEVICE
 typedef struct
 {
