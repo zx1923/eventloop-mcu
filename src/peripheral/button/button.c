@@ -12,7 +12,7 @@ el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType)
   btn->lastState = state;
   btn->lastEventTime = el_getMillis();
   fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
-  params[0].param.uint8Data = btn->id;
+  params[0].param.stringData = btn->name;
   params[1].param.uint8Data = btn->lastEventTime;
   return el_pushEvent(eventType, params, btn->lastEventTime);
 }
@@ -74,17 +74,17 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
   return EL_EMPTY;
 }
 
-el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id, el_btn_state_t initState)
+el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, const char* name)
 {
   if (Buttons.wp >= DF_BUTTON_COUNTER)
   {
     return NULL;
   }
   el_btn_t *btn = (el_btn_t *)malloc(sizeof(el_btn_t));
-  btn->id = id;
+  btn->name = name;
   btn->port = port;
   btn->pin = pin;
-  btn->lastState = initState;
+  btn->lastState = EL_BTN_RELEASE;
   btn->lastEventTime = 0;
   Buttons.btns[Buttons.wp++] = btn;
   return btn;

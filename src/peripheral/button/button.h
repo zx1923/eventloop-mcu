@@ -5,7 +5,7 @@
 #ifdef ENABLE_BUTTON_DEVICE
 typedef struct
 {
-  uint8_t id;
+  const char* name;
   el_btn_port_def *port;
   el_btn_pin_def pin;
   el_btn_state_t lastState;
@@ -22,7 +22,7 @@ typedef struct
 
 extern el_btn_state_t __user_el_btn_readPinState(el_btn_port_def *port, el_btn_pin_def pin);
 
-el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, uint8_t id, el_btn_state_t initState);
+el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, const char* name);
 el_ret_t el_button_postEvent(el_btn_t *btn);
 void el_button_observeState(void);
 
