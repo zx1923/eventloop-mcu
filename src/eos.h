@@ -13,6 +13,10 @@
 #include "peripheral/buzzer/buzzer.h"
 #endif // ENABLE_BUZZER_DEVICE
 
+#ifdef ENABLE_SENSOR_BMP180_I2C
+#include "peripheral/bmp180/bmp180.h"
+#endif // ENABLE_SENSOR_BMP180_I2C
+
 #define INTERVAL_NONE 0
 
 uint8_t el_setTimeout(void callback(), fun_params_t params[], uint32_t ms);

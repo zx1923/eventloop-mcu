@@ -19,6 +19,14 @@
 #define BSP_PIN_HIGH            GPIO_PIN_SET
 #define BSP_PIN_LOW             GPIO_PIN_RESET
 
+typedef enum 
+{
+  EL_IO_OK       = 0x00U,
+  EL_IO_ERROR    = 0x01U,
+  EL_IO_BUSY     = 0x02U,
+  EL_IO_TIMEOUT  = 0x03U
+} el_io_status_t;
+
 typedef enum
 {
   EVENT_NONE = 0,
@@ -50,5 +58,15 @@ typedef enum
 #define el_tim_def              TIM_HandleTypeDef
 #define el_channel_def          uint16_t
 #endif // ENABLE_BUZZER_DEVICE
+
+// i2c device/sensor
+#ifdef ENABLE_I2C_SENSOR
+#define el_i2c_def              I2C_HandleTypeDef
+#define DF_I2C_TIMEOUT          1000
+#endif // ENABLE_I2C_SENSOR
+
+#ifdef ENABLE_SENSOR_BMP180_I2C
+#define DF_BMP180_ADDRESS_7BIT  0x77
+#endif // ENABLE_SENSOR_BMP180_I2C
 
 #endif
