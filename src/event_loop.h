@@ -21,12 +21,12 @@ typedef enum
 
 typedef struct
 {
+  el_status_t status;
   uint8_t taskId;
   void (*handler)(fun_params_t *p);
   fun_params_t *params;
   uint32_t interval;
   uint32_t runAt;
-  el_status_t status;
 } el_task_t;
 
 typedef struct

@@ -1,5 +1,8 @@
 #include "eos.h"
 
+static el_task_t AnimationFrameTask = { EL_NULL };
+static uint16_t AnimationFrameTime = 0;
+
 uint8_t _createTaskId(void)
 {
   static uint8_t taskId = 0;
@@ -8,7 +11,8 @@ uint8_t _createTaskId(void)
 
 el_ret_t _clearAsyncTask(el_task_t *taskInstance)
 {
-  if (taskInstance != NULL) {
+  if (taskInstance != NULL)
+  {
     taskInstance->status = EL_CLEAR;
     return EL_OK;
   }
@@ -64,9 +68,27 @@ el_task_t *el_nextTick(void callback(), fun_params_t p[])
   return _setAsyncTask(callback, p, 0, 0, el_pushMicroTask);
 }
 
-el_task_t *el_requestAnimationFrame(void callback(), fun_params_t params[], uint8_t fps)
+el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t params[])
 {
+  if (fps == 0)
+    return EL_NULL;
+  AnimationFrameTask.status = EL_IDLE;
+  AnimationFrameTask.handler = callback;
+  AnimationFrameTask.params = params;
+  AnimationFrameTime = 1000 / fps;
+  return EL_OK;
+}
 
+void el_onIncTick()
+{
+  if (AnimationFrameTime == 0 || AnimationFrameTask.status == EL_NULL)
+    return;
+  if (el_getMillis() % AnimationFrameTime == 0)
+  {
+    AnimationFrameTask.status = EL_RUNNING;
+    AnimationFrameTask.handler(AnimationFrameTask.params);
+    AnimationFrameTask.status = EL_DONE;
+  }
 }
 
 void el_delay(uint32_t ms)
