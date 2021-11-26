@@ -138,16 +138,36 @@ el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occur
 
 void el_runTasks()
 {
-  uint8_t miSize = MicroTasksBuffer.size;
-  uint8_t maSize = MacroTasksBuffer.size;
-  uint8_t etSize = EventQueueBuffer.size;
-  // micro
-  while (EL_EMPTY != _walkTaskBuf(&MicroTasksBuffer) && miSize--)
-    ;
-  // events
-  while (EL_EMPTY != _walkEventBuf(&EventQueueBuffer) && etSize--)
-    ;
-  // macro
-  while (EL_EMPTY != _walkTaskBuf(&MacroTasksBuffer) && maSize--)
-    ;
+  static uint8_t step = 0;
+  static uint8_t size = 0;
+
+  if (step > 2)
+    step = 0;
+  switch (step)
+  {
+  case 0:
+    if (size == 0)
+      size = MicroTasksBuffer.size;
+    _walkTaskBuf(&MicroTasksBuffer);
+    size--;
+    if (size == 0)
+      step++;
+    break;
+  case 1:
+    if (size == 0)
+      size = EventQueueBuffer.size;
+    _walkEventBuf(&EventQueueBuffer);
+    size--;
+    if (size == 0)
+      step++;
+    break;
+  case 2:
+    if (size == 0)
+      size = MacroTasksBuffer.size;
+    _walkTaskBuf(&MacroTasksBuffer);
+    size--;
+    if (size == 0)
+      step++;
+    break;
+  };
 }

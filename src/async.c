@@ -1,8 +1,5 @@
 #include "eos.h"
 
-static uint16_t TickNumber = 0;
-static float EfpsTime = 0;
-
 uint8_t _createTaskId(void)
 {
   static uint8_t taskId = 0;
@@ -32,38 +29,13 @@ el_task_t *_setAsyncTask(void callback(), fun_params_t p[], uint32_t runAt, uint
   return timeoutTask;
 }
 
-void el_startLoop(void handler(), uint8_t fps)
+void el_startLoop(void handler())
 {
-  static uint32_t lastMillis = 0;
-  if (fps != NULL)
-  {
-    EfpsTime = 1000.0 / fps;
-  }
   handler();
   while (1)
   {
     el_runTasks();
-    TickNumber++;
-    if (el_getMillis() - lastMillis < EfpsTime) {
-      int32_t waitMs = EfpsTime - (el_getMillis() - lastMillis);
-      el_delaySync(waitMs <= 0 ? 0 : waitMs);
-    }
-    lastMillis = el_getMillis();
   }
-}
-
-float el_getFps()
-{
-  static uint32_t lastMillis = 0;
-  static float fps = 0;
-  uint32_t millis = el_getMillis();
-  if (millis - lastMillis >= 1000)
-  {
-    fps = 1.0 * TickNumber / (millis - lastMillis) * 1000;
-    TickNumber = 0;
-    lastMillis = el_getMillis();
-  }
-  return fps;
 }
 
 el_task_t *el_setTimeout(void callback(), uint32_t ms, fun_params_t p[])
@@ -90,4 +62,9 @@ el_ret_t el_clearInterval(el_task_t *taskInstance)
 el_task_t *el_nextTick(void callback(), fun_params_t p[])
 {
   return _setAsyncTask(callback, p, 0, 0, el_pushMicroTask);
+}
+
+el_task_t *el_requestAnimationFrame(void callback(), fun_params_t params[], uint8_t fps)
+{
+
 }
