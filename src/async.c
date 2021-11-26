@@ -71,7 +71,7 @@ el_task_t *el_nextTick(void callback(), fun_params_t p[])
 el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t params[])
 {
   if (fps == 0)
-    return EL_NULL;
+    return EL_ERR;
   AnimationFrameTask.status = EL_IDLE;
   AnimationFrameTask.handler = callback;
   AnimationFrameTask.params = params;

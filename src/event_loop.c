@@ -16,6 +16,8 @@ el_ret_t _pushTask(el_task_buf_t *taskBuf, el_task_t *task)
 {
   if (taskBuf->size >= DF_MAX_TASK_LEN)
   {
+    free(task->params);
+    free(task);
     return EL_FULL;
   }
   taskBuf->buf[taskBuf->wp++] = task;
@@ -40,6 +42,8 @@ el_ret_t _pushEvent(el_event_buf_t *eventBuf, et_body_t *eventBody)
 {
   if (eventBuf->size >= DF_EVENT_BUF_LEN)
   {
+    free(eventBody->params);
+    free(eventBody);
     return EL_FULL;
   }
   eventBuf->buf[eventBuf->wp++] = eventBody;
