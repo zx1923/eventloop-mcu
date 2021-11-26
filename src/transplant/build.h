@@ -2,7 +2,7 @@
 #define __USER_EL_BUILD_H__
 
 #define DF_MAX_TASK_LEN     16
-#define DF_EVENT_BUF_LEN    8
+#define DF_EVENT_BUF_LEN    16
 #define DF_MAX_LISTENERS    8
 // peripheral
 #define DF_BUTTON_COUNTER   4

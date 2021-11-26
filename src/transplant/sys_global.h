@@ -16,6 +16,12 @@ typedef enum
   EL_EMPTY,
 } el_ret_t;
 
+typedef enum
+{
+  EL_FALSE = 0,
+  EL_TRUE,
+} el_bool_t;
+
 typedef union
 {
   uint8_t uint8Data;

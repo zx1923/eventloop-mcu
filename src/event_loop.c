@@ -140,6 +140,21 @@ el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occur
   return _pushEvent(&EventQueueBuffer, eventBody);
 }
 
+el_bool_t el_isEventQueueValid()
+{
+  return EventQueueBuffer.size < DF_EVENT_BUF_LEN ? EL_TRUE : EL_FALSE;
+}
+
+el_bool_t el_isMacroTaskQueueValid(void)
+{
+  return MacroTasksBuffer.size < DF_MAX_TASK_LEN ? EL_TRUE : EL_FALSE;
+}
+
+el_bool_t el_isMicroTaskQueueValid(void)
+{
+  return MicroTasksBuffer.size < DF_MAX_TASK_LEN ? EL_TRUE : EL_FALSE;
+}
+
 void el_runTasks()
 {
   static uint8_t step = 0;

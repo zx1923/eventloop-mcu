@@ -9,6 +9,10 @@ void _clearDclickEvent(fun_params_t p[]);
 
 el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType)
 {
+  if (el_isEventQueueValid() == EL_FALSE)
+  {
+    return EL_FULL;
+  }
   btn->lastState = state;
   btn->lastEventTime = el_getMillis();
   fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
