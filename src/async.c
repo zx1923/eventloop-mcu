@@ -68,3 +68,12 @@ el_task_t *el_requestAnimationFrame(void callback(), fun_params_t params[], uint
 {
 
 }
+
+void el_delay(uint32_t ms)
+{
+  uint32_t endTime = el_getMillis() + ms;
+  while (el_getMillis() < endTime)
+  {
+    el_runTasks();
+  }
+}

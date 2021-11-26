@@ -39,7 +39,7 @@ void _bmp180ReadUP(el_bmp180_t *device)
 {
 	uint8_t pData[3];
 	_i2c_writeOneByte(device, BMP180_ADDRESS_MEM, BMP180_REG_CMD_PRESS + (BMP180_OSS << 6));
-	el_delaySync(10);
+	el_delay(10);
 	_i2c_readBytes(device, BMP180_REG_R_MEM, pData, 3);
 	device->calibration->up = ((pData[0] << 16) | (pData[1] << 8) | pData[2]) >> (8 - BMP180_OSS);
 }
@@ -47,7 +47,7 @@ void _bmp180ReadUP(el_bmp180_t *device)
 void _bmp180ReadUT(el_bmp180_t *device)
 {
 	_i2c_writeOneByte(device, BMP180_ADDRESS_MEM, BMP180_REG_CMD_TEMP);
-	el_delaySync(5);
+	el_delay(5);
 	device->calibration->ut = _i2c_readTwoBytes(device, BMP180_REG_R_MEM);
 }
 
