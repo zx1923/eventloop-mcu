@@ -16,6 +16,7 @@ typedef enum
   EL_IDLE,
   EL_RUNNING,
   EL_DONE,
+  EL_CLEAR,
 } el_status_t;
 
 typedef struct

@@ -66,6 +66,12 @@ el_ret_t _callTaskHandler(el_task_t *task)
   {
     return EL_ERR;
   }
+  if (task->status == EL_CLEAR)
+  {
+    free(task->params);
+    free(task);
+    return EL_OK;
+  }
   if (el_getMillis() < task->runAt)
   {
     el_pushMacroTask(task);
@@ -130,7 +136,7 @@ el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occur
   return _pushEvent(&EventQueueBuffer, eventBody);
 }
 
-void el_runTasks(void)
+void el_runTasks()
 {
   uint8_t miSize = MicroTasksBuffer.size;
   uint8_t maSize = MacroTasksBuffer.size;

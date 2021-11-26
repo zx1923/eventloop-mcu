@@ -25,6 +25,6 @@ void el_buzzer_setState(el_buzzer_t *buzzer, uint16_t period, uint32_t duration)
   __user_el_buzzer_setTimCompare(buzzer->htim, buzzer->channel, buzzer->compare);
   fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
   params[0].param.pointer = (uint32_t)buzzer;
-  el_setTimeout(_resetBuzzerCompareState, params, duration);
+  el_setTimeout(_resetBuzzerCompareState, duration, params);
 }
 #endif // ENABLE_BUZZER_DEVICE

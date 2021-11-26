@@ -68,7 +68,7 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
     // setTimeout => clear dclick handler
     fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
     params[0].param.pointer = (uint32_t)btn;
-    el_setTimeout(_clearDclickEvent, params, DF_BTN_DCLICK_DELAY);
+    el_setTimeout(_clearDclickEvent, DF_BTN_DCLICK_DELAY, params);
     return res;
   }
   return EL_EMPTY;

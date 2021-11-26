@@ -7,9 +7,11 @@
 
 #define INTERVAL_NONE 0
 
-uint8_t el_setTimeout(void callback(), fun_params_t params[], uint32_t ms);
-uint8_t el_setInterval(void callback(), fun_params_t params[], uint32_t ms, task_immediate_t immediate);
-uint8_t el_nextTick(void callback(), fun_params_t params[]);
+el_task_t *el_setTimeout(void callback(), uint32_t ms, fun_params_t params[]);
+el_ret_t el_clearTimeout(el_task_t *taskInstance);
+el_task_t *el_setInterval(void callback(), uint32_t ms, fun_params_t params[], task_immediate_t immediate);
+el_ret_t el_clearInterval(el_task_t *taskInstance);
+el_task_t *el_nextTick(void callback(), fun_params_t params[]);
 void el_startLoop(void handler(), uint8_t fps);
 float el_getFps(void);
 
