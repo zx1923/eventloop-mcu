@@ -1,6 +1,6 @@
 #include "eos.h"
 
-static el_task_t AnimationFrameTask = { EL_NULL };
+static el_task_t AnimationFrameTask = {EL_NULL};
 static uint16_t AnimationFrameTime = 0;
 
 uint8_t _createTaskId(void)
@@ -21,16 +21,15 @@ el_ret_t _clearAsyncTask(el_task_t *taskInstance)
 
 el_task_t *_setAsyncTask(void callback(), fun_params_t p[], uint32_t runAt, uint32_t interval, el_ret_t (*pushFn)(el_task_t *))
 {
-  el_task_t *timeoutTask;
-  timeoutTask = (el_task_t *)malloc(sizeof(el_task_t));
-  timeoutTask->params = p;
-  timeoutTask->handler = callback;
-  timeoutTask->interval = interval;
-  timeoutTask->runAt = runAt;
-  timeoutTask->taskId = _createTaskId();
-  timeoutTask->status = EL_IDLE;
-  pushFn(timeoutTask);
-  return timeoutTask;
+  el_task_t *task;
+  task = (el_task_t *)malloc(sizeof(el_task_t));
+  task->params = p;
+  task->handler = callback;
+  task->interval = interval;
+  task->runAt = runAt;
+  task->taskId = _createTaskId();
+  task->status = EL_IDLE;
+  return pushFn(task) == EL_FULL ? NULL : task;
 }
 
 void el_startLoop(void handler())
@@ -71,7 +70,9 @@ el_task_t *el_nextTick(void callback(), fun_params_t p[])
 el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t params[])
 {
   if (fps == 0)
+  {
     return EL_ERR;
+  }
   AnimationFrameTask.status = EL_IDLE;
   AnimationFrameTask.handler = callback;
   AnimationFrameTask.params = params;
@@ -82,7 +83,9 @@ el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t par
 void el_onIncTick()
 {
   if (AnimationFrameTime == 0 || AnimationFrameTask.status == EL_NULL)
+  {
     return;
+  }
   if (el_getMillis() % AnimationFrameTime == 0)
   {
     AnimationFrameTask.status = EL_RUNNING;
