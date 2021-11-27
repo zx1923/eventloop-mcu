@@ -15,11 +15,13 @@
 typedef enum
 {
   EVENT_NONE = 0,
+#ifdef ENABLE_BUTTON_DEVICE
   EVENT_BTN_PRESS,
   EVENT_BTN_LONG_PRESS,
   EVENT_BTN_RELEASE,
   EVENT_BTN_CLICK,
   EVENT_BTN_DCLICK,
+#endif // ENABLE_BUTTON_DEVICE
   // ...
   // Add other event enumeration values here
   // ...

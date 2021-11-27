@@ -32,9 +32,8 @@ el_task_t *_setAsyncTask(void callback(), fun_params_t p[], uint32_t runAt, uint
   return pushFn(task) == EL_FULL ? NULL : task;
 }
 
-void el_startLoop(void handler())
+void el_startLoop()
 {
-  handler();
   while (1)
   {
     el_runTasks();
