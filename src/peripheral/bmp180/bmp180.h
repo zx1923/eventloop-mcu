@@ -1,7 +1,7 @@
 #ifndef __USER_EL_BMP180_H__
 #define __USER_EL_BMP180_H__
 
-#include "async.h"
+#include "eos.h"
 #ifdef ENABLE_SENSOR_BMP180_I2C
 
 typedef struct {

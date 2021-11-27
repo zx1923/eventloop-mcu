@@ -1,7 +1,7 @@
 #ifndef __USER_EL_EMITER_H__
 #define __USER_EL_EMITER_H__
 
-#include "transplant/sys_global.h"
+#include "sys_global.h"
 
 typedef struct
 {

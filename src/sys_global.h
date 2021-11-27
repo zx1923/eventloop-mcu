@@ -1,8 +1,9 @@
 #ifndef __USER_EL_SYS_GLOBAL_H__
 #define __USER_EL_SYS_GLOBAL_H__
 
+#include <stdio.h>
 #include <stdlib.h>
-#include "bsp.h"
+#include "build.h"
 
 #define el_getMillis    Bsp_Get_Tick
 #define el_delaySync    Bsp_Delay_Ms
@@ -15,6 +16,14 @@ typedef enum
   EL_FULL,
   EL_EMPTY,
 } el_ret_t;
+
+typedef enum 
+{
+  EL_IO_OK       = 0x00U,
+  EL_IO_ERROR    = 0x01U,
+  EL_IO_BUSY     = 0x02U,
+  EL_IO_TIMEOUT  = 0x03U
+} el_io_status_t;
 
 typedef enum
 {

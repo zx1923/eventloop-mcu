@@ -1,7 +1,7 @@
 #ifndef __USER_EL_BUTTON_H__
 #define __USER_EL_BUTTON_H__
 
-#include "async.h"
+#include "eos.h"
 #ifdef ENABLE_BUTTON_DEVICE
 typedef struct
 {

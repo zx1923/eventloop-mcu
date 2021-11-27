@@ -1,5 +1,4 @@
 #include "event_loop.h"
-#include <string.h>
 
 static el_task_buf_t MacroTasksBuffer;
 static el_task_buf_t MicroTasksBuffer;

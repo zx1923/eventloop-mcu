@@ -1,8 +1,7 @@
 #ifndef __USER_EL_ASYNC_H__
 #define __USER_EL_ASYNC_H__
 
-#include "transplant/bsp.h"
-#include "transplant/sys_global.h"
+#include "sys_global.h"
 #include "event_loop.h"
 
 #define INTERVAL_NONE 0
