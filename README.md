@@ -3,10 +3,12 @@
 
 ## Features
 
+- 多任务，基于异步实现的多任务，类似于运行了 RTOS 操作系统；
 - 轻量，核心部分占用的 RAM 小于 1Kb；
 - JavaScript like；
 - 拥有 setTimeout 、setInterval 、nextTick 和 requestAnimationFrame 函数，使用效果与 JavaScript 类似；
 - 拥有异步延时函数，实现了等待，但不影响其他任务执行；
+- 事件驱动，基于异步编程，可以通过事件驱动各种应用；
 - 移植方便，核心部分只需实现两个函数；
 
 ## 移植
