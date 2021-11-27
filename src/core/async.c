@@ -34,6 +34,7 @@ el_task_t *_setAsyncTask(void callback(), fun_params_t p[], uint32_t runAt, uint
 
 void el_startLoop()
 {
+  el_pushEvent(EVENT_EL_LOAD, NULL, el_getMillis());
   while (1)
   {
     el_runTasks();
@@ -81,7 +82,7 @@ el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t par
 
 void el_onIncTick()
 {
-  if (AnimationFrameTime == 0 || AnimationFrameTask.status == EL_NULL)
+  if (AnimationFrameTime == 0 || AnimationFrameTask.status != EL_IDLE)
   {
     return;
   }
@@ -89,7 +90,7 @@ void el_onIncTick()
   {
     AnimationFrameTask.status = EL_RUNNING;
     AnimationFrameTask.handler(AnimationFrameTask.params);
-    AnimationFrameTask.status = EL_DONE;
+    AnimationFrameTask.status = EL_IDLE;
   }
 }
 

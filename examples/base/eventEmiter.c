@@ -2,6 +2,11 @@
 #include "main.h"
 #include "eos.h"
 
+void onLoad()
+{
+  printf("eventloop loaded\r\n");
+}
+
 void helloWorld()
 {
   printf("hello world!\r\n");
@@ -10,13 +15,8 @@ void helloWorld()
 int main(void)
 {
   // ...
-  /**
-   * @brief 一秒钟后执行 helloWorld 函数
-   * 
-   * 输出：
-   * hello world!
-   */
-  el_setTimeout(helloWorld, 1000, NULL);
+  el_addEventListener(EVENT_EL_LOAD, onLoad);
+  el_nextTick(helloWorld, NULL);
   // 启动事件循环
   el_startLoop();
   // ...

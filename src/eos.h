@@ -1,7 +1,6 @@
 #ifndef __USER_EL_FRAMEWORK_H__
 #define __USER_EL_FRAMEWORK_H__
 
-// #include "transplant/bsp.h"
 #include "build.h"
 #include "sys_global.h"
 #include "core/event_loop.h"

@@ -15,6 +15,7 @@
 typedef enum
 {
   EVENT_NONE = 0,
+  EVENT_EL_LOAD,
 #ifdef ENABLE_BUTTON_DEVICE
   EVENT_BTN_PRESS,
   EVENT_BTN_LONG_PRESS,
@@ -22,6 +23,7 @@ typedef enum
   EVENT_BTN_CLICK,
   EVENT_BTN_DCLICK,
 #endif // ENABLE_BUTTON_DEVICE
+  EVENT_SELF_ADD,
   // ...
   // Add other event enumeration values here
   // ...
