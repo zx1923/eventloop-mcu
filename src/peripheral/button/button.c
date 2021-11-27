@@ -4,16 +4,17 @@
 
 static el_btn_group_t Buttons;
 
-el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType);
+el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_status_t status, et_type_t eventType);
 void _clearDclickEvent(fun_params_t p[]);
+el_btn_status_t _readBtnStatus(el_btn_t *btn);
 
-el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_state_t state, et_type_t eventType)
+el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_status_t status, et_type_t eventType)
 {
   if (el_isEventQueueValid() == EL_FALSE)
   {
     return EL_FULL;
   }
-  btn->lastState = state;
+  btn->lastStatus = status;
   btn->lastEventTime = el_getMillis();
   fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
   params[0].param.stringData = btn->name;
@@ -30,17 +31,22 @@ void _clearDclickEvent(fun_params_t p[])
   }
 }
 
+el_btn_status_t _readBtnStatus(el_btn_t *btn)
+{
+  return __user_el_gpio_readPin(btn->port, btn->pin) == btn->pressPinSet ? EL_BTN_PRESS : EL_BTN_RELEASE;
+}
+
 el_ret_t el_button_postEvent(el_btn_t *btn)
 {
   uint32_t lastEventTime = btn->lastEventTime;
   // press
-  if (btn->lastState == EL_BTN_RELEASE && __user_el_btn_readPinState(btn->port, btn->pin) == EL_BTN_PRESS)
+  if (btn->lastStatus == EL_BTN_RELEASE && _readBtnStatus(btn) == EL_BTN_PRESS)
   {
     return _pushBtnEvent(btn, EL_BTN_PRESS, EVENT_BTN_PRESS);
   }
 
   // long press
-  if (btn->lastState == EL_BTN_PRESS && __user_el_btn_readPinState(btn->port, btn->pin) == EL_BTN_PRESS)
+  if (btn->lastStatus == EL_BTN_PRESS && _readBtnStatus(btn) == EL_BTN_PRESS)
   {
     if (el_getMillis() - lastEventTime >= DF_BTN_LONG_PRESS_TIME)
     {
@@ -50,7 +56,7 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
   }
 
   // release/click
-  if (btn->lastState == EL_BTN_PRESS && __user_el_btn_readPinState(btn->port, btn->pin) == EL_BTN_RELEASE)
+  if (btn->lastStatus == EL_BTN_PRESS && _readBtnStatus(btn) == EL_BTN_RELEASE)
   {
     el_ret_t res = EL_OK;
     res = _pushBtnEvent(btn, EL_BTN_RELEASE, EVENT_BTN_RELEASE);
@@ -78,7 +84,7 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
   return EL_EMPTY;
 }
 
-el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, const char* name)
+el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, const char* name, el_pin_set_t pressPinSet)
 {
   if (Buttons.wp >= DF_BUTTON_COUNTER)
   {
@@ -88,13 +94,14 @@ el_btn_t *el_button_regist(el_btn_port_def *port, el_btn_pin_def pin, const char
   btn->name = name;
   btn->port = port;
   btn->pin = pin;
-  btn->lastState = EL_BTN_RELEASE;
+  btn->lastStatus = EL_BTN_RELEASE;
+  btn->pressPinSet = pressPinSet;
   btn->lastEventTime = 0;
   Buttons.btns[Buttons.wp++] = btn;
   return btn;
 }
 
-void el_button_observeState()
+void el_button_scan()
 {
   if (Buttons.wp <= 0)
   {

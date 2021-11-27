@@ -27,6 +27,12 @@ typedef enum
 
 typedef enum
 {
+  EL_PIN_LOW = 0,
+  EL_PIN_HIGH,
+} el_pin_set_t;
+
+typedef enum
+{
   EL_FALSE = 0,
   EL_TRUE,
 } el_bool_t;

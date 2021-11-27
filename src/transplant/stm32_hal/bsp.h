@@ -12,14 +12,6 @@
 #define Bsp_Get_Tick            HAL_GetTick
 #define Bsp_Delay_Ms            HAL_Delay
 
-/* Pin Read/Write Definitions */
-#define Bsp_Gpio_Write          HAL_GPIO_WritePin
-#define Bsp_Gpio_Read           HAL_GPIO_ReadPin
-
-/* Pin high and low level definitions */
-#define BSP_PIN_HIGH            GPIO_PIN_SET
-#define BSP_PIN_LOW             GPIO_PIN_RESET
-
 typedef enum
 {
   EVENT_NONE = 0,
@@ -34,6 +26,16 @@ typedef enum
 } et_type_t;
 
 /**
+ * @brief Enabling the GPIO driver
+ * el_btn_port_def:   If not(like arduino), it can be defined as NULL
+ * el_btn_pin_def:    Data type of pin number
+ */
+#ifdef ENABLE_GPIO_DRIVER
+#define el_btn_port_def         GPIO_TypeDef
+#define el_btn_pin_def          uint16_t
+#endif // ENABLE_GPIO_DRIVER
+
+/**
  * @brief Enabling the user button driver
  * 
  * DF_BTN_LONG_PRESS_TIME:  Wait time to trigger the button long press event
@@ -42,13 +44,6 @@ typedef enum
 #ifdef ENABLE_BUTTON_DEVICE
 #define DF_BTN_LONG_PRESS_TIME  1000
 #define DF_BTN_DCLICK_DELAY     300
-typedef enum
-{
-  EL_BTN_PRESS = BSP_PIN_LOW,
-  EL_BTN_RELEASE = BSP_PIN_HIGH,
-} el_btn_state_t;
-#define el_btn_port_def         GPIO_TypeDef
-#define el_btn_pin_def          uint16_t
 #endif // ENABLE_BUTTON_DEVICE
 
 /* Enable buzzer driver */

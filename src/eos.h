@@ -16,6 +16,10 @@
 #include "peripheral/buzzer/buzzer.h"
 #endif // ENABLE_BUZZER_DEVICE
 
+#ifdef ENABLE_LED_DEVICE
+#include "peripheral/led/led.h"
+#endif // ENABLE_LED_DEVICE
+
 #ifdef ENABLE_SENSOR_BMP180_I2C
 #include "peripheral/bmp180/bmp180.h"
 #endif // ENABLE_SENSOR_BMP180_I2C

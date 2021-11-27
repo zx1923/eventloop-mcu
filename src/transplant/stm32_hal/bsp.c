@@ -1,11 +1,17 @@
 #include "bsp.h"
 
-#ifdef ENABLE_BUTTON_DEVICE
-__weak el_btn_state_t __user_el_btn_readPinState(el_btn_port_def *port, el_btn_pin_def pin)
+// Define gpio read and write functions
+#ifdef ENABLE_GPIO_DRIVER
+extern void __user_el_gpio_writePin(el_btn_port_def *port, el_btn_pin_def pin, el_pin_set_t state)
 {
-  return (el_btn_state_t)HAL_GPIO_ReadPin(port, pin);
+  HAL_GPIO_WritePin(port, pin, (GPIO_PinState)state);
 }
-#endif // ENABLE_BUTTON_DEVICE
+
+extern el_pin_set_t __user_el_gpio_readPin(el_btn_port_def *port, el_btn_pin_def pin)
+{
+  return (el_pin_set_t)HAL_GPIO_ReadPin(port, pin);
+}
+#endif // ENABLE_GPIO_DRIVER
 
 #ifdef ENABLE_BUZZER_DEVICE
 __weak void __user_el_buzzer_setTimCompare(el_tim_def *tim, el_channel_def channel, uint16_t value)
@@ -29,7 +35,7 @@ __weak void __user_el_buzzer_stop(el_tim_def *tim, el_channel_def channel)
 }
 #endif // ENABLE_BUZZER_DEVICE
 
-// i2c sensor w/d bsp
+// Define i2c read and write functions
 #ifdef ENABLE_I2C_SENSOR
 __weak el_io_status_t __user_el_i2c_read_bytes(el_i2c_def *hi2c, uint16_t devAddress, uint16_t memAddress, uint8_t *pData, uint16_t pLen)
 {
