@@ -326,6 +326,55 @@ int main(void)
 
 > 要让 el_requestAnimationFrame 设置的回调函数顺利执行，还需要在 MCU 的 tickTimer 中断函数中调用 el_onIncTick 函数，由于这不是该段代码的主要目的，所以不在这里展开。
 
+### 多任务/多线程
+
+eos 允许用户定义多个周期任务，这与 JavaScript 表现一直，所以借助 el_setInterval 可以实现多任务。多任务的执行效果类似于多线程，但本质上不是多线程，只是单线程非阻塞模型的一种异步表现，也是该模型的特性之一。
+
+下面的例子将创建两个周期任务，分别控制两个 led 闪烁。
+
+```c
+#include <stdio.h>
+#include "main.h"
+#include "eos.h"
+
+void ledBlink(fun_params_t p[])
+{
+  // 假设已定义 el_led_on 和 el_led_off 两个函数
+  el_led_t *led = (el_led_t *)p[0].param.pointer;
+  uint32_t onMs = (uint32_t)p[1].param.int32Data;
+  if (onMs == 0)
+    return;
+  el_led_on(led);
+  fun_params_t *params = (fun_params_t *)malloc(sizeof(el_led_t));
+  memcpy(params, led, sizeof(el_led_t));
+  // 点亮一段时间后熄灭LED
+  el_setTimeout(el_led_off, onMs, params);
+}
+
+int main(void)
+{
+  // ...
+  el_led_t *ledR = el_led_regist(GPIOB, GPIO_PIN_0, "Red", EL_PIN_LOW);
+  el_led_t *ledG = el_led_regist(GPIOB, GPIO_PIN_5, "Green", EL_PIN_LOW);
+  
+  fun_params_t *blinkParamsR = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
+  blinkParamsR[0].param.pointer = (uint32_t)ledR;
+  blinkParamsR[1].param.int32Data = 10;
+  el_setInterval(ledBlink, 1000, blinkParamsR, IMMEDIATE_N);
+
+  fun_params_t *blinkParamsG = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
+  blinkParamsG[0].param.pointer = (uint32_t)ledG;
+  blinkParamsG[1].param.int32Data = 20;
+  el_setInterval(ledBlink, 2000, blinkParamsG, IMMEDIATE_N);
+
+  // 启动事件循环
+  el_startLoop();
+  // ...
+}
+```
+
+上面的例子编译执行后，可以看到 Red 和 Green 两个 led 分别按照 1 秒和 2 秒为周期点亮，每次点亮 10ms ，这两个周期任务互相没有干扰，独自执行，类似于两个线程在分别运行。
+
 ### 监听用户输入
 
 #### 按钮点击事件
@@ -389,11 +438,14 @@ int main(void)
   el_btn_t *btn2 = el_button_regist(GPIOB, GPIO_PIN_1, "Btn2", EL_PIN_HIGH);
   el_addEventListener(EVENT_BTN_LONG_PRESS, onLongPress);
   el_addEventListener(EVENT_BTN_CLICK, onClick);
-  
+  // 每隔 10ms 扫描一次按键
+  el_setInterval(el_button_scan, 10, NULL, IMMEDIATE_N);
+
   // 启动事件循环
   el_startLoop();
   // ...
 }
+
 ```
 
 当用户对注册的按钮进行操作时，就会触发 **EVENT_BTN_LONG_PRESS** 或 **EVENT_BTN_CLICK** 事件，通过回调函数即可处理该事件。

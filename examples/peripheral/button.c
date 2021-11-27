@@ -22,7 +22,9 @@ int main(void)
   el_btn_t *btn2 = el_button_regist(GPIOB, GPIO_PIN_1, "Btn2", EL_PIN_HIGH);
   el_addEventListener(EVENT_BTN_LONG_PRESS, onLongPress);
   el_addEventListener(EVENT_BTN_CLICK, onClick);
-  
+  // 每隔 10ms 扫描一次按键
+  el_setInterval(el_button_scan, 10, NULL, IMMEDIATE_N);
+
   // 启动事件循环
   el_startLoop();
   // ...
