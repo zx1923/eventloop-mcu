@@ -4,11 +4,10 @@
 // bsp
 #define BSP_USE_ARM_STM32_HAL
 
+// Related buffer definitions
 #define DF_MAX_TASK_LEN     32
 #define DF_EVENT_BUF_LEN    32
 #define DF_MAX_LISTENERS    16
-// peripheral
-#define DF_BUTTON_COUNTER   4
 
 // pwm/gpio driver
 #define ENABLE_PWM_DRIVER
@@ -16,6 +15,10 @@
 
 // module/device
 #define ENABLE_BUTTON_DEVICE
+#ifdef ENABLE_BUTTON_DEVICE
+#define DF_BUTTON_COUNTER   4
+#endif // ENABLE_BUTTON_DEVICE
+
 #define ENABLE_BUZZER_DEVICE
 #define ENABLE_LED_DEVICE
 
@@ -29,6 +32,14 @@
 
 #ifdef BSP_USE_ARM_STM32_HAL
 #include "transplant/stm32_hal/bsp.h"
+#endif // BSP_USE_ARM_STM32_HAL
+
+#ifdef BSP_USE_STM8_SPL
+#include "transplant/stm8_spl/bsp.h"
+#endif // BSP_USE_STM8_SPL
+
+#ifdef BSP_USE_ARDUINO
+#include "transplant/arduino/bsp.h"
 #endif // BSP_USE_ARM_STM32_HAL
 
 #endif
