@@ -28,7 +28,7 @@ extern void __user_el_gpio_writePin(el_btn_port_def *port, el_btn_pin_def pin, e
 el_led_t *el_led_regist(el_btn_port_def *port, el_btn_pin_def pin, const char *name, el_pin_set_t onPinSet);
 void el_led_on(el_led_t *led);
 void el_led_off(el_led_t *led);
-void el_led_blink(el_led_t *led, uint32_t onMs, uint32_t offMs);
+void el_led_blink(el_led_t *led, uint32_t onMs);
 
 #ifdef ENABLE_PWM_DRIVER
 extern void __user_el_pwm_setValue(el_btn_port_def *port, el_btn_pin_def pin, el_pin_set_t value);

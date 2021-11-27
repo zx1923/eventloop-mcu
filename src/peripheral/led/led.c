@@ -26,7 +26,7 @@ void el_led_off(el_led_t *led)
   led->status = EL_LED_STATUS_OFF;
 }
 
-void el_led_blink(el_led_t *led, uint32_t onMs, uint32_t offMs)
+void el_led_blink(el_led_t *led, uint32_t onMs)
 {
   if (onMs == 0)
     return;
@@ -34,10 +34,6 @@ void el_led_blink(el_led_t *led, uint32_t onMs, uint32_t offMs)
   fun_params_t *params = (fun_params_t *)malloc(sizeof(el_led_t));
   memcpy(params, led, sizeof(el_led_t));
   el_setTimeout(el_led_off, onMs, params);
-  if (offMs > 0)
-  {
-    el_delay(offMs);
-  }
 }
 
 #endif // ENABLE_LED_DEVICE
