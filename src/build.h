@@ -30,16 +30,6 @@
 #define ENABLE_SENSOR_BMP280_I2C
 #endif // ENABLE_I2C_SENSOR
 
-#ifdef BSP_USE_ARM_STM32_HAL
-#include "transplant/stm32_hal/bsp.h"
-#endif // BSP_USE_ARM_STM32_HAL
-
-#ifdef BSP_USE_STM8_SPL
-#include "transplant/stm8_spl/bsp.h"
-#endif // BSP_USE_STM8_SPL
-
-#ifdef BSP_USE_ARDUINO
-#include "transplant/arduino/bsp.h"
-#endif // BSP_USE_ARM_STM32_HAL
+#include "transplant/bsp_inc.h"
 
 #endif

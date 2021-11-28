@@ -2,7 +2,6 @@
 #define __USER_EL_BSP_H__
 
 #include "stm32f4xx_hal.h"
-#include "build.h"
 #include "sys_global.h"
 
 #ifndef NULL
