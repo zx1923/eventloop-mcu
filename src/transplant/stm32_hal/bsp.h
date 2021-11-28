@@ -2,6 +2,7 @@
 #define __USER_EL_BSP_H__
 
 #include "stm32f4xx_hal.h"
+#include "build.h"
 #include "sys_global.h"
 
 #ifndef NULL
@@ -11,6 +12,21 @@
 /* Time-delay function and tick timer definition */
 #define Bsp_Get_Tick            HAL_GetTick
 #define Bsp_Delay_Ms            HAL_Delay
+
+/* Timestamp and pointer type definitions */
+#define el_time_t               uint32_t
+#define el_pointer_t            uint32_t
+
+typedef union
+{
+  uint8_t uint8Data;
+  const char* stringData;
+  el_time_t timestamp;
+  el_pointer_t pointer;
+  // ...
+  // Add a custom type here
+  // ...
+} fun_params_t;
 
 typedef enum
 {

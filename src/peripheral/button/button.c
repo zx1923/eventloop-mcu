@@ -17,14 +17,14 @@ el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_status_t status, et_type_t eventTyp
   btn->lastStatus = status;
   btn->lastEventTime = el_getMillis();
   fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
-  params[0].param.stringData = btn->name;
-  params[1].param.timestamp = btn->lastEventTime;
+  params[0].stringData = btn->name;
+  params[1].timestamp = btn->lastEventTime;
   return el_pushEvent(eventType, params, btn->lastEventTime);
 }
 
 void _clearDclickEvent(fun_params_t p[])
 {
-  el_btn_t *btn = (el_btn_t *)p[0].param.pointer;
+  el_btn_t *btn = (el_btn_t *)p[0].pointer;
   if (btn != NULL)
   {
     btn->lockEvent = EVENT_NONE;
@@ -77,7 +77,7 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
 
     // setTimeout => clear dclick handler
     fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
-    params[0].param.pointer = (el_pointer_t)btn;
+    params[0].pointer = (el_pointer_t)btn;
     el_setTimeout(_clearDclickEvent, DF_BTN_DCLICK_DELAY, params);
     return res;
   }
