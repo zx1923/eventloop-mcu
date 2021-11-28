@@ -8,6 +8,9 @@
 #define el_getMillis    Bsp_Get_Tick
 #define el_delaySync    Bsp_Delay_Ms
 
+#define el_time_t       uint32_t
+#define el_pointer_t    uint32_t
+
 typedef enum
 {
   EL_OK = 1,
@@ -43,7 +46,8 @@ typedef union
   int32_t int32Data;
   double doubleData;
   const char* stringData;
-  uint32_t pointer;
+  el_time_t timestamp;
+  el_pointer_t pointer;
 } params_union_t;
 
 typedef struct

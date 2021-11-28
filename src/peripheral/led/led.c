@@ -3,7 +3,7 @@
 
 #ifdef ENABLE_LED_DEVICE
 
-el_led_t *el_led_regist(el_btn_port_def *port, el_btn_pin_def pin, const char *name, el_pin_set_t onPinSet)
+el_led_t *el_led_regist(el_gpio_port_def *port, el_gpio_pin_def pin, const char *name, el_pin_set_t onPinSet)
 {
   el_led_t *led = (el_led_t *)malloc(sizeof(el_led_t));
   led->name = name;
@@ -26,7 +26,7 @@ void el_led_off(el_led_t *led)
   led->status = EL_LED_STATUS_OFF;
 }
 
-void el_led_blink(el_led_t *led, uint32_t onMs)
+void el_led_blink(el_led_t *led, el_time_t onMs)
 {
   if (onMs == 0)
     return;

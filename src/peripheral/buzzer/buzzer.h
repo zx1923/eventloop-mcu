@@ -21,7 +21,7 @@ extern void __user_el_buzzer_setTimCompare(el_tim_def *tim, el_channel_def chann
 extern void __user_el_buzzer_setTimPeriod(el_tim_def *tim, uint16_t period);
 
 el_buzzer_t *el_buzzer_regist(el_tim_def *htim, el_channel_def channel, const char *name, uint16_t initState);
-void el_buzzer_setState(el_buzzer_t *buzzer, uint16_t period, uint32_t duration);
+void el_buzzer_setState(el_buzzer_t *buzzer, uint16_t period, el_time_t duration);
 
 #endif
 

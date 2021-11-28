@@ -25,8 +25,8 @@ typedef struct
   uint8_t taskId;
   void (*handler)(fun_params_t *p);
   fun_params_t *params;
-  uint32_t interval;
-  uint32_t runAt;
+  el_time_t interval;
+  el_time_t runAt;
 } el_task_t;
 
 typedef struct
@@ -47,7 +47,7 @@ typedef struct
 
 el_ret_t el_pushMacroTask(el_task_t *task);
 el_ret_t el_pushMicroTask(el_task_t *task);
-el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime);
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], el_time_t occuredTime);
 el_bool_t el_isEventQueueValid(void);
 el_bool_t el_isMacroTaskQueueValid(void);
 el_bool_t el_isMicroTaskQueueValid(void);

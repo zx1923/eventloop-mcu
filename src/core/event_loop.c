@@ -130,7 +130,7 @@ el_ret_t el_pushMicroTask(el_task_t *task)
   return _pushTask(&MicroTasksBuffer, task);
 }
 
-el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], uint32_t occuredTime)
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], el_time_t occuredTime)
 {
   et_body_t *eventBody = (et_body_t *)malloc(sizeof(et_body_t));
   eventBody->eventType = eventType;

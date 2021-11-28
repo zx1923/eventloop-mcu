@@ -31,12 +31,12 @@ typedef enum
 
 /**
  * @brief Enabling the GPIO driver
- * el_btn_port_def:   If not(like arduino), it can be defined as NULL
- * el_btn_pin_def:    Data type of pin number
+ * el_gpio_port_def:   If not(like arduino), it can be defined as NULL
+ * el_gpio_pin_def:    Data type of pin number
  */
 #ifdef ENABLE_GPIO_DRIVER
-#define el_btn_port_def         GPIO_TypeDef
-#define el_btn_pin_def          uint16_t
+#define el_gpio_port_def         GPIO_TypeDef
+#define el_gpio_pin_def          uint16_t
 #endif // ENABLE_GPIO_DRIVER
 
 /**

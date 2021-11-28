@@ -19,7 +19,7 @@ el_ret_t _clearAsyncTask(el_task_t *taskInstance)
   return EL_ERR;
 }
 
-el_task_t *_setAsyncTask(void callback(), fun_params_t p[], uint32_t runAt, uint32_t interval, el_ret_t (*pushFn)(el_task_t *))
+el_task_t *_setAsyncTask(void callback(), fun_params_t p[], el_time_t runAt, el_time_t interval, el_ret_t (*pushFn)(el_task_t *))
 {
   el_task_t *task;
   task = (el_task_t *)malloc(sizeof(el_task_t));
@@ -41,14 +41,14 @@ void el_startLoop()
   }
 }
 
-el_task_t *el_setTimeout(void callback(), uint32_t ms, fun_params_t p[])
+el_task_t *el_setTimeout(void callback(), el_time_t ms, fun_params_t p[])
 {
   return _setAsyncTask(callback, p, el_getMillis() + ms, INTERVAL_NONE, el_pushMacroTask);
 }
 
-el_task_t *el_setInterval(void callback(), uint32_t ms, fun_params_t p[], task_immediate_t immediate)
+el_task_t *el_setInterval(void callback(), el_time_t ms, fun_params_t p[], task_immediate_t immediate)
 {
-  uint32_t runAt = immediate == IMMEDIATE_N ? el_getMillis() + ms : 0;
+  el_time_t runAt = immediate == IMMEDIATE_N ? el_getMillis() + ms : 0;
   return _setAsyncTask(callback, p, runAt, ms, el_pushMacroTask);
 }
 

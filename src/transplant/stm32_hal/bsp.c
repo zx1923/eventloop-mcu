@@ -2,12 +2,12 @@
 
 // Define gpio read and write functions
 #ifdef ENABLE_GPIO_DRIVER
-extern void __user_el_gpio_writePin(el_btn_port_def *port, el_btn_pin_def pin, el_pin_set_t state)
+extern void __user_el_gpio_writePin(el_gpio_port_def *port, el_gpio_pin_def pin, el_pin_set_t state)
 {
   HAL_GPIO_WritePin(port, pin, (GPIO_PinState)state);
 }
 
-extern el_pin_set_t __user_el_gpio_readPin(el_btn_port_def *port, el_btn_pin_def pin)
+extern el_pin_set_t __user_el_gpio_readPin(el_gpio_port_def *port, el_gpio_pin_def pin)
 {
   return (el_pin_set_t)HAL_GPIO_ReadPin(port, pin);
 }
