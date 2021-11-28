@@ -2,7 +2,7 @@
 #define __USER_EL_BUILD_H__
 
 // bsp
-#define BSP_USE_ARM_STM32_HAL
+#define BSP_USE_STM32_HAL
 
 // Related buffer definitions
 #define DF_MAX_TASK_LEN     32

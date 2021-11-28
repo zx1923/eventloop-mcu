@@ -7,9 +7,9 @@ extern "C" {
 
 #include "build.h"
 
-#ifdef BSP_USE_ARM_STM32_HAL
+#ifdef BSP_USE_STM32_HAL
 #include "transplant/stm32_hal/bsp.h"
-#endif // BSP_USE_ARM_STM32_HAL
+#endif // BSP_USE_STM32_HAL
 
 #ifdef BSP_USE_STM8_SPL
 #include "transplant/stm8_spl/bsp.h"
@@ -17,7 +17,7 @@ extern "C" {
 
 #ifdef BSP_USE_ARDUINO
 #include "transplant/arduino/bsp.h"
-#endif // BSP_USE_ARM_STM32_HAL
+#endif // BSP_USE_ARDUINO
 
 #ifdef __cplusplus
 }
