@@ -1,6 +1,10 @@
 #ifndef __USER_EL_LED_H__
 #define __USER_EL_LED_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "eos.h"
 #ifdef ENABLE_LED_DEVICE
 #ifndef ENABLE_GPIO_DRIVER
@@ -34,5 +38,10 @@ void el_led_blink(el_led_t *led, uint32_t onMs);
 extern void __user_el_pwm_setValue(el_btn_port_def *port, el_btn_pin_def pin, el_pin_set_t value);
 #endif // ENABLE_PWM_DRIVER
 
-#endif
 #endif // ENABLE_LED_DEVICE
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // __USER_EL_LED_H__

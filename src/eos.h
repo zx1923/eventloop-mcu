@@ -1,6 +1,10 @@
 #ifndef __USER_EL_FRAMEWORK_H__
 #define __USER_EL_FRAMEWORK_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "build.h"
 #include "sys_global.h"
 #include "core/event_loop.h"
@@ -22,6 +26,10 @@
 #ifdef ENABLE_SENSOR_BMP180_I2C
 #include "peripheral/bmp180/bmp180.h"
 #endif // ENABLE_SENSOR_BMP180_I2C
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

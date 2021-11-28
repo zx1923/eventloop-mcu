@@ -1,6 +1,10 @@
 #ifndef __USER_EL_BMP180_H__
 #define __USER_EL_BMP180_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "eos.h"
 #ifdef ENABLE_SENSOR_BMP180_I2C
 
@@ -75,6 +79,11 @@ void el_bmp180_readStart(el_bmp180_t *device);
 float el_bmp180_readTemperature(el_bmp180_t *device);
 long el_bmp180_readPressure(el_bmp180_t *device);
 
-#endif
 #endif // ENABLE_SENSOR_BMP180_I2C
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // __USER_EL_BMP180_H__
 

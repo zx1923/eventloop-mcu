@@ -1,6 +1,10 @@
 #ifndef __USER_EL_BUZZER_H__
 #define __USER_EL_BUZZER_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "eos.h"
 #ifdef ENABLE_BUZZER_DEVICE
 typedef struct
@@ -20,4 +24,9 @@ el_buzzer_t *el_buzzer_regist(el_tim_def *htim, el_channel_def channel, const ch
 void el_buzzer_setState(el_buzzer_t *buzzer, uint16_t period, uint32_t duration);
 
 #endif
+
+#ifdef __cplusplus
+}
 #endif // ENABLE_BUZZER_DEVICE
+
+#endif // __USER_EL_BUZZER_H__

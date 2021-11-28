@@ -1,6 +1,10 @@
 #ifndef __USER_EL_BUTTON_H__
 #define __USER_EL_BUTTON_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "eos.h"
 #ifdef ENABLE_BUTTON_DEVICE
 #ifndef ENABLE_GPIO_DRIVER
@@ -37,5 +41,10 @@ el_ret_t el_button_postEvent(el_btn_t *btn);
 void el_button_scan(void);
 
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif // ENABLE_BUTTON_DEVICE
 

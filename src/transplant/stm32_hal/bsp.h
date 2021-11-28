@@ -67,4 +67,4 @@ typedef enum
 #define DF_BMP180_ADDRESS_7BIT  0x77
 #endif // ENABLE_SENSOR_BMP180_I2C
 
-#endif
+#endif // __USER_EL_BSP_H__
