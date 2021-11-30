@@ -47,7 +47,7 @@ typedef struct
 
 el_ret_t el_pushMacroTask(el_task_t *task);
 el_ret_t el_pushMicroTask(el_task_t *task);
-el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], el_time_t occuredTime);
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[]);
 el_bool_t el_isEventQueueValid(void);
 el_bool_t el_isMacroTaskQueueValid(void);
 el_bool_t el_isMicroTaskQueueValid(void);

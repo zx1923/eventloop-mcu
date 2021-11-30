@@ -17,7 +17,7 @@ el_ret_t el_addEventListener(et_type_t eventType, void handler())
   return EL_OK;
 }
 
-el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[])
+el_ret_t el_emitEvent(et_type_t eventType, fun_params_t *params)
 {
   if (EventDeps.size <= 0)
   {
@@ -30,6 +30,5 @@ el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[])
       EventDeps.subs[i]->handler(params);
     }
   }
-  free(params);
   return EL_OK;
 }

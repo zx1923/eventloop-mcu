@@ -11,12 +11,23 @@ el_ret_t _walkTaskBuf(el_task_buf_t *taskBuf);
 el_ret_t _pushEvent(el_event_buf_t *eventBuf, et_body_t *eventBody);
 et_body_t *_shiftEvent(el_event_buf_t *eventBuf);
 
+void _freeTask(el_task_t *task)
+{
+  free(task->params);
+  free(task);
+}
+
+void _freeEventBody(et_body_t *eventBody)
+{
+  free(eventBody->params);
+  free(eventBody);
+}
+
 el_ret_t _pushTask(el_task_buf_t *taskBuf, el_task_t *task)
 {
   if (taskBuf->size >= DF_MAX_TASK_LEN)
   {
-    free(task->params);
-    free(task);
+    _freeTask(task);
     return EL_FULL;
   }
   taskBuf->buf[taskBuf->wp++] = task;
@@ -41,8 +52,7 @@ el_ret_t _pushEvent(el_event_buf_t *eventBuf, et_body_t *eventBody)
 {
   if (eventBuf->size >= DF_EVENT_BUF_LEN)
   {
-    free(eventBody->params);
-    free(eventBody);
+    _freeEventBody(eventBody);
     return EL_FULL;
   }
   eventBuf->buf[eventBuf->wp++] = eventBody;
@@ -71,8 +81,7 @@ el_ret_t _callTaskHandler(el_task_t *task)
   }
   if (task->status == EL_CLEAR)
   {
-    free(task->params);
-    free(task);
+    _freeTask(task);
     return EL_OK;
   }
   if (el_getMillis() < task->runAt)
@@ -92,9 +101,8 @@ el_ret_t _callTaskHandler(el_task_t *task)
     el_pushMacroTask(task);
     return EL_OK;
   }
-
-  free(task->params);
-  free(task);
+  
+  _freeTask(task);
   return EL_OK;
 }
 
@@ -116,7 +124,7 @@ el_ret_t _walkEventBuf(el_event_buf_t *eventBuf)
     return EL_EMPTY;
   }
   el_ret_t res = el_emitEvent(eventBody->eventType, eventBody->params);
-  free(eventBody);
+  _freeEventBody(eventBody);
   return res;
 }
 
@@ -130,12 +138,12 @@ el_ret_t el_pushMicroTask(el_task_t *task)
   return _pushTask(&MicroTasksBuffer, task);
 }
 
-el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[], el_time_t occuredTime)
+el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[])
 {
   et_body_t *eventBody = (et_body_t *)malloc(sizeof(et_body_t));
   eventBody->eventType = eventType;
   eventBody->params = params;
-  eventBody->occuredTime = occuredTime;
+  eventBody->occuredTime = el_getMillis();
   return _pushEvent(&EventQueueBuffer, eventBody);
 }
 

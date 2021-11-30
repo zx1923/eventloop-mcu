@@ -16,10 +16,9 @@ el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_status_t status, et_type_t eventTyp
   }
   btn->lastStatus = status;
   btn->lastEventTime = el_getMillis();
-  fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
+  fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
   params[0].stringData = btn->name;
-  params[1].timestamp = btn->lastEventTime;
-  return el_pushEvent(eventType, params, btn->lastEventTime);
+  return el_pushEvent(eventType, params);
 }
 
 void _clearDclickEvent(fun_params_t p[])

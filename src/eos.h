@@ -7,6 +7,7 @@ extern "C" {
 
 #include "build.h"
 #include "sys_global.h"
+#include "core/util.h"
 #include "core/event_loop.h"
 #include "core/async.h"
 #include "core/emiter.h"
