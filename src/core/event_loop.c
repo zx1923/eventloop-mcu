@@ -198,3 +198,12 @@ void el_runTasks()
     break;
   };
 }
+
+void el_startLoop()
+{
+  el_emitEvent(EVENT_EL_LOAD, NULL);
+  while (1)
+  {
+    el_runTasks();
+  }
+}

@@ -52,5 +52,6 @@ el_bool_t el_isEventQueueValid(void);
 el_bool_t el_isMacroTaskQueueValid(void);
 el_bool_t el_isMicroTaskQueueValid(void);
 void el_runTasks(void);
+void el_startLoop(void);
 
 #endif

@@ -12,7 +12,6 @@ el_task_t *el_setInterval(void callback(), el_time_t ms, fun_params_t *params, t
 el_ret_t el_clearInterval(el_task_t *taskInstance);
 el_task_t *el_nextTick(void callback(), fun_params_t *params);
 el_ret_t el_requestAnimationFrame(void callback(), uint8_t fps, fun_params_t *params);
-void el_startLoop(void);
 void el_delay(el_time_t ms);
 void el_onIncTick(void);
 

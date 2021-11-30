@@ -33,15 +33,6 @@ el_task_t *_setAsyncTask(void callback(), fun_params_t *p, el_time_t runAt, el_t
   return pushFn(task) == EL_FULL ? NULL : task;
 }
 
-void el_startLoop()
-{
-  el_emitEvent(EVENT_EL_LOAD, NULL);
-  while (1)
-  {
-    el_runTasks();
-  }
-}
-
 el_task_t *el_setTimeout(void callback(), el_time_t ms, fun_params_t *p)
 {
   return _setAsyncTask(callback, p, el_getMillis() + ms, INTERVAL_NONE, el_pushMacroTask);
