@@ -1,4 +1,5 @@
 #include "event_loop.h"
+#include "util.h"
 
 static el_task_buf_t MacroTasksBuffer;
 static el_task_buf_t MicroTasksBuffer;
@@ -13,14 +14,14 @@ et_body_t *_shiftEvent(el_event_buf_t *eventBuf);
 
 void _freeTask(el_task_t *task)
 {
-  free(task->params);
-  free(task);
+  el_free(task->params);
+  el_free(task);
 }
 
 void _freeEventBody(et_body_t *eventBody)
 {
-  free(eventBody->params);
-  free(eventBody);
+  el_free(eventBody->params);
+  el_free(eventBody);
 }
 
 el_ret_t _pushTask(el_task_buf_t *taskBuf, el_task_t *task)
@@ -140,7 +141,7 @@ el_ret_t el_pushMicroTask(el_task_t *task)
 
 el_ret_t el_pushEvent(et_type_t eventType, fun_params_t params[])
 {
-  et_body_t *eventBody = (et_body_t *)malloc(sizeof(et_body_t));
+  et_body_t *eventBody = (et_body_t *)el_malloc(sizeof(et_body_t));
   eventBody->eventType = eventType;
   eventBody->params = params;
   eventBody->occuredTime = el_getMillis();

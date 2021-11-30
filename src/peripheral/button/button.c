@@ -16,7 +16,7 @@ el_ret_t _pushBtnEvent(el_btn_t *btn, el_btn_status_t status, et_type_t eventTyp
   }
   btn->lastStatus = status;
   btn->lastEventTime = el_getMillis();
-  fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
+  fun_params_t *params = (fun_params_t *)el_malloc(sizeof(fun_params_t));
   params[0].stringData = btn->name;
   return el_pushEvent(eventType, params);
 }
@@ -75,7 +75,7 @@ el_ret_t el_button_postEvent(el_btn_t *btn)
     res = _pushBtnEvent(btn, EL_BTN_RELEASE, EVENT_BTN_CLICK);
 
     // setTimeout => clear dclick handler
-    fun_params_t *params = (fun_params_t *)malloc(sizeof(fun_params_t));
+    fun_params_t *params = (fun_params_t *)el_malloc(sizeof(fun_params_t));
     params[0].pointer = (el_pointer_t)btn;
     el_setTimeout(_clearDclickEvent, DF_BTN_DCLICK_DELAY, params);
     return res;
@@ -89,7 +89,7 @@ el_btn_t *el_button_regist(el_gpio_port_def *port, el_gpio_pin_def pin, const ch
   {
     return NULL;
   }
-  el_btn_t *btn = (el_btn_t *)malloc(sizeof(el_btn_t));
+  el_btn_t *btn = (el_btn_t *)el_malloc(sizeof(el_btn_t));
   btn->name = name;
   btn->port = port;
   btn->pin = pin;

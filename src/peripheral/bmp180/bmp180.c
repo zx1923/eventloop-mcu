@@ -84,8 +84,8 @@ void _bmp180ReadCalibration(el_bmp180_t *device)
 el_bmp180_t *el_bmp180_regist(el_i2c_def *hi2c, const char* deviceName, uint16_t address7Bit)
 {
 	uint16_t targetAddress = address7Bit == NULL ? DF_BMP180_ADDRESS_7BIT : address7Bit;
-	el_bmp180_calibration_t *cali = (el_bmp180_calibration_t *)malloc(sizeof(el_bmp180_calibration_t));
-	el_bmp180_t *device = (el_bmp180_t *)malloc(sizeof(el_bmp180_t));
+	el_bmp180_calibration_t *cali = (el_bmp180_calibration_t *)el_malloc(sizeof(el_bmp180_calibration_t));
+	el_bmp180_t *device = (el_bmp180_t *)el_malloc(sizeof(el_bmp180_t));
 	device->hi2c = hi2c;
 	device->addressR = targetAddress << 1;
 	device->addressW = (targetAddress << 1) | 0x01;

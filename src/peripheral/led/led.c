@@ -5,7 +5,7 @@
 
 el_led_t *el_led_regist(el_gpio_port_def *port, el_gpio_pin_def pin, const char *name, el_pin_set_t onPinSet)
 {
-  el_led_t *led = (el_led_t *)malloc(sizeof(el_led_t));
+  el_led_t *led = (el_led_t *)el_malloc(sizeof(el_led_t));
   led->name = name;
   led->port = port;
   led->pin = pin;
@@ -31,7 +31,7 @@ void el_led_blink(el_led_t *led, el_time_t onMs)
   if (onMs == 0)
     return;
   el_led_on(led);
-  fun_params_t *params = (fun_params_t *)malloc(sizeof(el_led_t));
+  fun_params_t *params = (fun_params_t *)el_malloc(sizeof(el_led_t));
   memcpy(params, led, sizeof(el_led_t));
   el_setTimeout(el_led_off, onMs, params);
 }

@@ -4,6 +4,7 @@
 // bsp
 #define BSP_USE_STM32_HAL
 #define DF_HEAP_SIZE        0x300
+#define DF_HEAP_BUF_LEN     (DF_HEAP_SIZE / 8 + 1)
 
 // Related buffer definitions
 #define DF_MAX_TASK_LEN     32

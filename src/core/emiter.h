@@ -26,6 +26,6 @@ typedef struct
 
 // void el_Init(void);
 el_ret_t el_addEventListener(et_type_t eventType, void handler());
-el_ret_t el_emitEvent(et_type_t eventType, fun_params_t params[]);
+el_ret_t el_emitEvent(et_type_t eventType, fun_params_t *params);
 
 #endif

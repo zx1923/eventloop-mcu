@@ -1,4 +1,5 @@
 #include "emiter.h"
+#include "util.h"
 
 static et_dep_t EventDeps;
 
@@ -8,7 +9,7 @@ el_ret_t el_addEventListener(et_type_t eventType, void handler())
   {
     return EL_FULL;
   }
-  et_subs_t *sub = (et_subs_t *)malloc(sizeof(et_subs_t));
+  et_subs_t *sub = (et_subs_t *)el_malloc(sizeof(et_subs_t));
   sub->eventType = eventType;
   sub->handler = handler;
   EventDeps.subs[EventDeps.wp++] = sub;

@@ -1,4 +1,5 @@
 #include "eos.h"
+#include "util.h"
 
 static el_task_t AnimationFrameTask = {EL_NULL};
 static uint16_t AnimationFrameTime = 0;
@@ -22,7 +23,7 @@ el_ret_t _clearAsyncTask(el_task_t *taskInstance)
 el_task_t *_setAsyncTask(void callback(), fun_params_t *p, el_time_t runAt, el_time_t interval, el_ret_t (*pushFn)(el_task_t *))
 {
   el_task_t *task;
-  task = (el_task_t *)malloc(sizeof(el_task_t));
+  task = (el_task_t *)el_malloc(sizeof(el_task_t));
   task->params = p;
   task->handler = callback;
   task->interval = interval;
@@ -34,7 +35,7 @@ el_task_t *_setAsyncTask(void callback(), fun_params_t *p, el_time_t runAt, el_t
 
 void el_startLoop()
 {
-  el_pushEvent(EVENT_EL_LOAD, NULL);
+  el_emitEvent(EVENT_EL_LOAD, NULL);
   while (1)
   {
     el_runTasks();

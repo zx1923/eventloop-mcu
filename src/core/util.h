@@ -11,8 +11,15 @@ typedef struct
   float usage;
 } el_heap_info_t;
 
+typedef struct
+{
+  void *p[DF_HEAP_BUF_LEN];
+  uint16_t size[DF_HEAP_BUF_LEN];
+  uint8_t wp;
+} el_heap_map_t;
+
 el_heap_info_t el_getHeapInfo(void);
 void *el_malloc(size_t n);
-void el_free(void *, size_t n);
+void el_free(void *p);
 
 #endif
