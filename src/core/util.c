@@ -1,7 +1,9 @@
 #include "util.h"
 #include "emiter.h"
 
+#ifdef ENABLE_HEAP_MAP
 static int FreeSize = DF_HEAP_SIZE;
+
 static el_heap_map_t HeapMap = {0, 0};
 
 void _heapPush(void *p, size_t n)
@@ -38,24 +40,28 @@ el_heap_info_t el_getHeapInfo(void)
   heapInfo.usage = FreeSize <= 0 ? 1.0 : (1 - FreeSize * 1.0 / DF_HEAP_SIZE);
   return heapInfo;
 }
+#endif // ENABLE_HEAP_MAP
 
 void *el_malloc(size_t n)
 {
-  uint16_t realSize = 0;
   void *p = malloc(n);
   if (p == NULL)
   {
     el_emitEvent(EVENT_HEAP_INVALID, NULL);
     return NULL;
   }
-  realSize = (n / 8 * 8) + 8;
+#ifdef ENABLE_HEAP_MAP
+  uint16_t realSize = (n / 8 * 8) + 8;
   FreeSize -= realSize;
   _heapPush(p, realSize);
+#endif // ENABLE_HEAP_MAP
   return p;
 }
 
 void el_free(void *p)
 {
+#ifdef ENABLE_HEAP_MAP
   FreeSize += _heapFind(p);
+#endif // ENABLE_HEAP_MAP
   free(p);
 }

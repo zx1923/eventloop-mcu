@@ -11,9 +11,9 @@
 #define DF_EVENT_BUF_LEN    32
 #define DF_MAX_LISTENERS    16
 
-// pwm/gpio driver
 #define ENABLE_PWM_DRIVER
 #define ENABLE_GPIO_DRIVER
+#define ENABLE_HEAP_MAP
 
 // module/device
 #define ENABLE_BUTTON_DEVICE
