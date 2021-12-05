@@ -33,7 +33,7 @@ void el_led_blink(el_led_t *led, el_time_t onMs)
   el_led_on(led);
   fun_params_t *params = (fun_params_t *)el_malloc(sizeof(el_led_t));
   memcpy(params, led, sizeof(el_led_t));
-  el_setTimeout(el_led_off, onMs, params);
+  el_setTimeout(NULL, el_led_off, onMs, params);
 }
 
 #endif // ENABLE_LED_DEVICE

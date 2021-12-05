@@ -5,7 +5,7 @@
 #include "sys_global.h"
 
 #ifndef NULL
-#define NULL  0
+#define NULL  ((void *)0)
 #endif // NULL
 
 /* Time-delay function and tick timer definition */

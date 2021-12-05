@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "build.h"
 
+#define EL_PARAMS_NULL  NULL
 #define el_getMillis    Bsp_Get_Tick
 #define el_delaySync    Bsp_Delay_Ms
 
