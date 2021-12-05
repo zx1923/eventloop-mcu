@@ -35,9 +35,9 @@ void startTestTasks()
   // 周期任务：每隔 2000ms LED_R 点亮 50ms
   el_setInterval(LedR_Blink, blinkParams, 2000, IMMEDIATE_N);
   // 一次性任务：在下一个 tick 打印出 hello world
-  el_nextTick(helloWorld, NULL);
+  el_nextTick(helloWorld, EL_PARAMS_NULL);
   // 周期任务：每 10ms 执行 observBtnState 函数观察按钮状态
-  el_setInterval(observBtnState, NULL, 10, IMMEDIATE_Y);
+  el_setInterval(NULL, observBtnState, EL_PARAMS_NULL, 10, IMMEDIATE_Y);
 
   // 监听按钮 press 和 release 事件
   el_addEventListener(EVENT_BTN_PRESS, onBtnPressed);

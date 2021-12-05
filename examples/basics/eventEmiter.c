@@ -16,7 +16,7 @@ int main(void)
 {
   // ...
   el_addEventListener(EVENT_EL_LOAD, onLoad);
-  el_nextTick(helloWorld, NULL);
+  el_nextTick(helloWorld, EL_PARAMS_NULL);
   // 启动事件循环
   el_startLoop();
   // ...

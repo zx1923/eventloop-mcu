@@ -10,7 +10,7 @@ int main(void)
 {
   // ...
   el_addEventListener(EVENT_SELF_ADD, helloWorld);
-  el_emitEvent(EVENT_SELF_ADD, NULL);
+  el_emitEvent(EVENT_SELF_ADD, EL_PARAMS_NULL);
   // 启动事件循环
   el_startLoop();
   // ...

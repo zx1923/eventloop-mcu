@@ -25,12 +25,12 @@ int main(void)
   fun_params_t *blinkParamsR = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
   blinkParamsR[0].param.pointer = (uint32_t)ledR;
   blinkParamsR[1].param.int32Data = 10;
-  el_setInterval(ledBlink, 1000, blinkParamsR, IMMEDIATE_N);
+  el_setInterval(NULL, ledBlink, 1000, blinkParamsR, IMMEDIATE_N);
 
   fun_params_t *blinkParamsG = (fun_params_t *)malloc(sizeof(fun_params_t) * 2);
   blinkParamsG[0].param.pointer = (uint32_t)ledG;
   blinkParamsG[1].param.int32Data = 20;
-  el_setInterval(ledBlink, 2000, blinkParamsG, IMMEDIATE_N);
+  el_setInterval(NULL, ledBlink, 2000, blinkParamsG, IMMEDIATE_N);
 
   // 启动事件循环
   el_startLoop();

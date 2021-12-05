@@ -21,7 +21,7 @@ int main(void)
    * Count: 2
    * ...
    */
-  el_setInerval(echoCounter, 1000, NULL, IMMEDIATE_N);
+  el_setInerval(NULL, echoCounter, 1000, EL_PARAMS_NULL, IMMEDIATE_N);
   // 启动事件循环
   el_startLoop();
   // ...

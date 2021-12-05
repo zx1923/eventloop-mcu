@@ -23,7 +23,7 @@ int main(void)
   el_addEventListener(EVENT_BTN_LONG_PRESS, onLongPress);
   el_addEventListener(EVENT_BTN_CLICK, onClick);
   // 每隔 10ms 扫描一次按键
-  el_setInterval(el_button_scan, 10, NULL, IMMEDIATE_N);
+  el_setInterval(NULL, el_button_scan, 10, EL_PARAMS_NULL, IMMEDIATE_N);
 
   // 启动事件循环
   el_startLoop();

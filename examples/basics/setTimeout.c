@@ -16,7 +16,7 @@ int main(void)
    * 输出：
    * hello world!
    */
-  el_setTimeout(helloWorld, 1000, NULL);
+  el_setTimeout(NULL, helloWorld, 1000, EL_PARAMS_NULL);
   // 启动事件循环
   el_startLoop();
   // ...

@@ -26,8 +26,8 @@ int main(void)
    * hello world!
    * Count: 0
    */
-  el_setTimeout(echoCounter, 0, NULL);
-  el_nextTick(helloWorld, NULL);
+  el_setTimeout(NULL, echoCounter, 0, EL_PARAMS_NULL);
+  el_nextTick(helloWorld, EL_PARAMS_NULL);
   // 启动事件循环
   el_startLoop();
   // ...
